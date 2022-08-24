@@ -1,0 +1,201 @@
+# Generated 2022-08-08 from:
+# /home/alex/Documents/PY/evaluarea_vad/training/hparams/train.yaml
+# yamllint disable
+# ##################################################################################################
+# Model: VAD on LibriParty with CRDNN.
+# This code heavily relis on on-the-fly data augmentation using external data.
+# Before running the code, please download the needed datasets:
+#
+# - LibriParty: https://drive.google.com/file/d/1--cAS5ePojMwNY5fewioXAv9YlYAWzIJ/view?usp=sharing
+# - Musan: https://www.openslr.org/resources/17/musan.tar.gz
+# - CommonLanguage: https://zenodo.org/record/5036977/files/CommonLanguage.tar.gz?download=1
+#
+# Authors: Mohamed Kleit 2021
+#          Arjun V 2021
+#          Mirco Ravanelli 2021
+# ##################################################################################################
+
+# Seed and output folders
+seed: 1986
+__set_seed: !apply:torch.manual_seed [1986]
+output_folder: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff
+save_folder: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff
+train_log: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/train_log.txt
+
+# LibriParty (main data)
+data_folder: /media/alex/extra_memory/speechbrain_dataset/LibriParty/dataset/
+                           # e.g. /path/to/LibriParty
+
+# Additional data (for augmentation)
+open_rir_folder: /media/alex/extra_memory/speechbrain_dataset/LibriParty/dataset/ # where to store noisy +ris from open_rir
+musan_folder: /media/alex/extra_memory/speechbrain_dataset/musan/
+                            # e.g, /path/to/musan (download it from the web before)
+commonlanguage_folder: /media/alex/extra_memory/speechbrain_dataset/common_voice_kpd
+                                     # e.g, /path/to/commonlang (download it from the web before)
+
+# Manifest files (created by the data preparation)
+annotation_train: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/train.json
+annotation_valid: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/valid.json
+annotation_test: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/test.json
+music_csv: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/music.csv
+noise_csv: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/noise.csv
+speech_csv: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/speech.csv
+multilang_speech_csv: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/multilang_speech.csv
+skip_prep: false # Skip data preparation
+
+# Training parameters
+N_epochs: 1
+lr: 1.0
+lr_final: 0.1
+batch_size: 2
+example_length: 5 # in seconds
+sample_rate: 16000
+time_resolution: 0.01 # in seconds
+train_dataloader_opts:
+  batch_size: 2
+valid_dataloader_opts:
+  batch_size: 2
+test_dataloader_opts:
+  batch_size: 2
+
+# Feature parameters
+n_fft: 400
+n_mels: 40
+
+# Model parameters
+activation: !name:torch.nn.LeakyReLU
+dropout: 0.15
+cnn_blocks: 2
+cnn_channels: (16, 16)
+cnn_kernelsize: (3, 3)
+rnn_layers: 2
+rnn_neurons: 32
+rnn_bidirectional: true
+dnn_blocks: 1
+dnn_neurons: 16
+output_neurons: 1
+
+
+# Data augmentation
+add_noise: !new:speechbrain.lobes.augment.EnvCorrupt
+  openrir_folder: /media/alex/extra_memory/speechbrain_dataset/LibriParty/dataset/
+  babble_prob: 0.0
+  reverb_prob: 0.0
+  noise_prob: 1.0
+  noise_snr_low: -5
+  noise_snr_high: -15
+
+noise_corruption: !new:speechbrain.lobes.augment.EnvCorrupt
+  openrir_folder: /media/alex/extra_memory/speechbrain_dataset/LibriParty/dataset/
+  babble_prob: 0.0
+  reverb_prob: 0.0
+  noise_prob: 1.0
+  noise_snr_low: 5
+  noise_snr_high: 15
+
+add_noise_musan: !new:speechbrain.lobes.augment.EnvCorrupt
+  noise_csv: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/noise.csv
+  babble_prob: 0.0
+  reverb_prob: 0.0
+  noise_prob: 1.0
+  noise_snr_low: -15
+  noise_snr_high: -20
+
+add_music_musan: !new:speechbrain.lobes.augment.EnvCorrupt
+  noise_csv: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/music.csv
+  babble_prob: 0.0
+  reverb_prob: 0.0
+  noise_prob: 1.0
+  noise_snr_low: -15
+  noise_snr_high: -20
+
+add_speech_musan: !new:speechbrain.lobes.augment.EnvCorrupt
+  noise_csv: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/speech.csv
+  babble_prob: 0.0
+  reverb_prob: 0.0
+  noise_prob: 1.0
+  noise_snr_low: -15
+  noise_snr_high: -20
+
+add_speech_multilang: !new:speechbrain.lobes.augment.EnvCorrupt
+  noise_csv: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/multilang_speech.csv
+  babble_prob: 0.0
+  reverb_prob: 0.0
+  noise_prob: 1.0
+  noise_snr_low: -15
+  noise_snr_high: -20
+
+
+# Models
+compute_features: !new:speechbrain.lobes.features.Fbank
+  sample_rate: 16000
+  n_fft: 400
+  n_mels: 40
+  hop_length: 10.0                            # in ms
+
+mean_var_norm: &id005 !new:speechbrain.processing.features.InputNormalization
+
+  norm_type: sentence
+
+cnn: &id001 !new:speechbrain.nnet.containers.Sequential
+  input_shape: [null, null, 40]
+  norm1: !name:speechbrain.nnet.normalization.LayerNorm
+  cnn1: !name:speechbrain.lobes.models.CRDNN.CNN_Block
+    channels: 16
+    kernel_size: (3, 3)
+  cnn2: !name:speechbrain.lobes.models.CRDNN.CNN_Block
+    channels: 32
+    kernel_size: (3, 3)
+
+rnn: &id002 !new:speechbrain.nnet.RNN.GRU
+  input_shape: [null, null, 320]
+  hidden_size: 32
+  num_layers: 2
+  bidirectional: true
+
+dnn: &id003 !new:speechbrain.nnet.containers.Sequential
+  input_shape: [null, null, 64]
+  dnn1: !name:speechbrain.lobes.models.CRDNN.DNN_Block
+    neurons: 16
+  dnn2: !name:speechbrain.lobes.models.CRDNN.DNN_Block
+    neurons: 16
+  lin: !name:speechbrain.nnet.linear.Linear
+    n_neurons: 1
+    bias: false
+
+
+model: &id004 !new:torch.nn.ModuleList
+- [*id001, *id002, *id003]
+modules:
+  model: *id004
+  cnn: *id001
+  rnn: *id002
+  dnn: *id003
+  mean_var_norm: *id005
+opt_class: !name:torch.optim.Adadelta
+  lr: 1.0
+  rho: 0.95
+  eps: 1.e-8
+
+epoch_counter: &id006 !new:speechbrain.utils.epoch_loop.EpochCounter
+
+  limit: 1
+
+lr_annealing: !new:speechbrain.nnet.schedulers.LinearScheduler
+  initial_value: 1.0
+  final_value: 0.1
+  epoch_count: 1
+
+checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
+  checkpoints_dir: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs
+  recoverables:
+    model: *id004
+    mean_var_norm: *id005
+    counter: *id006
+compute_BCE_cost: !name:speechbrain.nnet.losses.bce_loss
+
+train_logger: !new:speechbrain.utils.train_logger.FileTrainLogger
+  save_file: /home/alex/Documents/PY/evaluarea_vad/trained_models/1_epochs/train_stuff/train_log.txt
+
+train_stats: !name:speechbrain.utils.metric_stats.BinaryMetricStats
+test_stats: !name:speechbrain.utils.metric_stats.BinaryMetricStats
