@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluation graph</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+    <canvas id="multipleLineChart" width="400" height="400"></canvas>
+</head>
+
+<body>
+
+    <script>
+        const ctx = document.getElementById('multipleLineChart').getContext('2d');
+
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [
+                    {{ labels_inaspeech }},
+                    {{ labels_picovoice }},
+                    {{ labels_speechbrain_3 }},
+                    {{ labels_speechbrain_10 }},
+                    {{ labels_speechbrain_100 }},
+                    {{ labels_webrtc }}
+                ],
+        datasets: [{
+            label: 'InaSpeechSegmenter',
+            data: {{ values_inaspeech }},
+            borderColor: "red",
+            fill: false,
+            lineTension: 0.1
+            },
+        {
+            label: 'Picovoice',
+            data: {{ values_picovoice }},
+            borderColor: "green",
+            fill: false,
+            lineTension: 0.1
+            },
+        {
+            label: 'Speechbrain_3',
+            data: {{ values_speechbrain_3 }},
+            borderColor: "yellow",
+            fill: false,
+            lineTension: 0.1
+
+                },
+        {
+            label: 'Speechbrain_10',
+            data: {{ values_speechbrain_10 }},
+            borderColor: "purple",
+            fill: false,
+            lineTension: 0.1
+
+                },
+        {
+            label: 'Speechbrain_100',
+            data: {{ values_speechbrain_100 }},
+            borderColor: "black",
+            fill: false,
+            lineTension: 0.1
+
+                },
+        {
+            label: 'WebRTC',
+            data: {{ values_webrtc }},
+            borderColor: "blue",
+            fill: false,
+            lineTension: 0.1
+
+                }
+        ]
+            },
+        options: {
+        }
+        });
+    </script>
+</body>

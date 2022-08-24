@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Artificial Intelligence</title>
+    <!-- Adding Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+</head>
+
+<body style="background-color:salmon; ">
+    <div style="display: flex; flex-flow: column;">
+        <div style="display: flex; flex-flow: row;">
+            <!-- meniu -->
+            <div>
+                <ul style="padding-left: 25px; padding-top: 44px; padding-right: 7px;">
+                    <li class="btn btn-info" style=" display: block; padding: 10px 15px;">
+                        <a href="/inaspeechsegmenter" style="font-size: small; color: white;">InaSpeechSegmenter</a>
+                    </li>
+                    <li class="btn btn-info" style=" display: block; padding: 10px 15px;">
+                        <a href="/picovoice" style="color: white;">Picovoice</a>
+                    </li>
+                    <li class="btn btn-info" style="display: block; padding: 10px 15px;">
+                        <a href="/speechbrain" style="color: white;">Speechbrain</a>
+                    </li>
+                    <li class="btn btn-info" style=" display: block; padding: 10px 15px; ">
+                        <a href="/webrtc" style="color: white;">WebRTC</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- content -->
+            <div>
+                <p style="text-align:center;"><img src="https://i.im.ge/2022/08/14/OXLfrC.logo.png" alt="logo" />
+                </p>
+                <h1 class="text-center" style="margin-top: -40px">VAD Evaluation</h1>
+                <br />
+                <p class="text-center" style="font-size: 18px; margin-top: 25px;">Select which VAD types do you want to
+                    evaluate. After
+                    that,
+                    select
+                    the wav files and the txt
+                    files that
+                    contains the GT. Make sure to have the same name.
+                </p>
+                <br />
+                <div class="col-md-4" style="margin-left:420px;">
+                    <form method="post" id="multiple_select_form" style="display: flex; margin-top: 30px;">
+                        <select name="skills" id="skills" data-none-selected-text="VAD types..."
+                            style="display: inline; " class="form-control selectpicker" data-live-search="true"
+                            multiple>
+                            <option value="inaspeechsegmenter">inaspeechsegmenter</option>
+                            <option value="picovoice">picovoice</option>
+                            <option value="speechbrain_3">speechbrain_3</option>
+                            <option value="speechbrain_10">speechbrain_10</option>
+                            <option value="speechbrain_100">speechbrain_100</option>
+                            <option value="webrtc">webrtc</option>
+                        </select>
+
+                        <input type="hidden" name="hidden_skills" id="hidden_skills" />
+                        <input class="btn btn-info" style="margin-left:10px; display: inline;" type="submit"
+                            name="submit" value="Submit" />
+                    </form>
+
+                    <form class="p-3 text-center" action="/evaluation" method="POST" enctype="multipart/form-data">
+                        <input style="margin-left:70px; margin-top: 30px; font-size: 18px;" class="from-control"
+                            type="file" name="folder_path" multiple>
+                        <br /><br />
+                        <input class="btn btn-info" type="submit"
+                            style="font-size: 20px; border-radius: 25px; margin-top: 5px;" value="Evaluate WAV files" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <marquee behavior="alternative" scrollamount="35" style="margin-top: -40px; ">
+            <img src="https://i.im.ge/2022/08/14/OXLKV4.background.png" alt="background">
+        </marquee>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
+
+            $('#skills').change(function () {
+                $('#hidden_skills').val($('#skills').val());
+            });
+
+            $('#multiple_select_form').on('submit', function (event) {
+                event.preventDefault();
+                if ($('#skills').val() != '') {
+                    var form_data = $(this).serialize();
+                    $.ajax({
+                        url: "/evaluation",
+                        method: "POST",
+                        data: form_data,
+                    })
+                }
+
+            });
+        });
+    </script>
+</body>
+
+</html>
