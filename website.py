@@ -10,8 +10,8 @@ import io
 import os
 import shutil
 import time
-from vad_multifile_evaluation.vad_evaluation import main_course
-from vad_multifile_evaluation.vad_detection import main_course_detection
+from vad.vad_evaluation import main_course
+from vad.vad_detection import main_course_detection
 
 app = Flask(__name__)
 
