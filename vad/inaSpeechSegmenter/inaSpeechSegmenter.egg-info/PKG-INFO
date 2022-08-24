@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: inaSpeechSegmenter
+Version: 0.7.3+1.ga78d3ca
+Summary: CNN-based audio segmentation toolkit. Does voice activity detection, speech detection, music detection, noise detection, speaker gender recognition.
+Home-page: https://github.com/ina-foss/inaSpeechSegmenter
+Author: David Doukhan
+Author-email: david.doukhan@gmail.com
+License: MIT
+Keywords: speech-segmentation,audio-analysis,music-detection,noise-detection,speech-detection,speech-music,gender-equality,gender-classification,speaker-gender,speech,music,noise,voice-activity-detection,praat
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Multimedia :: Sound/Audio
+Classifier: Topic :: Multimedia :: Sound/Audio :: Analysis
+Classifier: Topic :: Multimedia :: Sound/Audio :: Speech
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Sociology
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+Split audio signal into homogeneous zones of speech, music and noise. Then detects speaker gender.  
+
+inaSpeechSegmenter has been presented at the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) 2018 conference in Calgary, Canada. If you use this toolbox in your research, you can cite the following work in your publications :
+
+
+```bibtex
+@inproceedings{ddoukhanicassp2018,
+  author = {Doukhan, David and Carrive, Jean and Vallet, Félicien and Larcher, Anthony and Meignier, Sylvain},
+  title = {An Open-Source Speaker Gender Detection Framework for Monitoring Gender Equality},
+  year = {2018},
+  organization={IEEE},
+  booktitle={Acoustics Speech and Signal Processing (ICASSP), 2018 IEEE International Conference on}
+}
+```
+
+inaSpeechSegmenter won MIREX 2018 speech detection challenge.  
+http://www.music-ir.org/mirex/wiki/2018:Music_and_or_Speech_Detection_Results  
+Details on the speech detection submodule can be found bellow:  
+
+
+```bibtex
+@inproceedings{ddoukhanmirex2018,
+  author = {Doukhan, David and Lechapt, Eliott and Evrard, Marc and Carrive, Jean},
+  title = {INA’S MIREX 2018 MUSIC AND SPEECH DETECTION SYSTEM},
+  year = {2018},
+  booktitle={Music Information Retrieval Evaluation eXchange (MIREX 2018)}
+}
+```
+
+

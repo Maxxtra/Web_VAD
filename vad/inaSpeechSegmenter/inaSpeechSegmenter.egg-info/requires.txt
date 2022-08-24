@@ -1,0 +1,11 @@
+tensorflow
+numpy
+pandas
+scikit-image
+pyannote.algorithms
+pyannote.core
+pyannote.parser
+matplotlib
+Pyro4
+pytextgrid
+soundfile
