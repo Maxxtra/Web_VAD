@@ -1,0 +1,10 @@
+In templates you find all the html code for the pages
+vad should be the folder that contains the vad evaluation kit
+
+1. Install Flask
+  pip install Flask
+ 
+2. Install all the environment for VAD detection
+
+3. Run the website
+  python3 website.py
