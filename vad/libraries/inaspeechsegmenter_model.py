@@ -1,5 +1,5 @@
 import time
-from vad_multifile_evaluation.inaSpeechSegmenter.inaSpeechSegmenter import Segmenter
+from vad.inaSpeechSegmenter.inaSpeechSegmenter import Segmenter
 
 
 def inaspeechsegmenter(audio_path, threshold_number, wav, report_path, VAD_type):
@@ -52,6 +52,7 @@ def inaspeechsegmenter(audio_path, threshold_number, wav, report_path, VAD_type)
         audio_type = tuple[0]
         begin_value = tuple[1]
         end_value = tuple[2]
-        f.writelines("%0.2f " % begin_value + " %0.2f" % end_value + "   voice\n")
+        f.writelines("%0.2f " % begin_value + " %0.2f" %
+                     end_value + "   voice\n")
 
     return total_time
