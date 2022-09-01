@@ -7,4 +7,4 @@ vad should be the folder that contains the vad evaluation kit
 2. Install all the environment for VAD detection
 
 3. Run the website
-  python3 website.py
+  python website.py
