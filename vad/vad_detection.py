@@ -5,10 +5,10 @@ import glob
 import warnings
 
 # import the libraries coresponding the models
-from vad_multifile_evaluation.libraries.picovoice_model import picovoice
-from vad_multifile_evaluation.libraries.webrtc_model import webrtc
-from vad_multifile_evaluation.libraries.speechbrain_model import speechbrain
-from vad_multifile_evaluation.libraries.inaspeechsegmenter_model import (
+from vad.libraries.picovoice_model import picovoice
+from vad.libraries.webrtc_model import webrtc
+from vad.libraries.speechbrain_model import speechbrain
+from vad.libraries.inaspeechsegmenter_model import (
     inaspeechsegmenter,
 )
 

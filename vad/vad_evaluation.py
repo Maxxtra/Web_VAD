@@ -8,13 +8,13 @@ from matplotlib.figure import Figure
 from adjustText import adjust_text
 
 # import the library which makes the evaluation
-from vad_multifile_evaluation.libraries.evaluation import evaluation_process_multifile
+from vad.libraries.evaluation import evaluation_process_multifile
 
 # import the libraries coresponding the models
-from vad_multifile_evaluation.libraries.picovoice_model import picovoice
-from vad_multifile_evaluation.libraries.webrtc_model import webrtc
-from vad_multifile_evaluation.libraries.speechbrain_model import speechbrain
-from vad_multifile_evaluation.libraries.inaspeechsegmenter_model import (
+from vad.libraries.picovoice_model import picovoice
+from vad.libraries.webrtc_model import webrtc
+from vad.libraries.speechbrain_model import speechbrain
+from vad.libraries.inaspeechsegmenter_model import (
     inaspeechsegmenter,
 )
 
