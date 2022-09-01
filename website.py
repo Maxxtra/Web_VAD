@@ -63,7 +63,7 @@ def upload_files():
 
         # get the path to the trained_models for speechbrain
         trained_models_path_speechbrain = parent_dir + \
-            "/vad_multifile_evaluation/trained_models/"
+            "/vad/trained_models/"
 
         total_precision_recall = main_course(
             path, vad_types, trained_models_path_speechbrain)
@@ -122,7 +122,7 @@ def detection():
 
         # get the path to the trained_models for speechbrain
         trained_models_path_speechbrain = parent_dir + \
-            "/vad_multifile_evaluation/trained_models/"
+            "/vad/trained_models/"
 
         detection_path = main_course_detection(
             path, vad_type, trained_models_path_speechbrain)
@@ -141,7 +141,7 @@ def detection():
                          as_attachment=True)
 
     return render_template("detection.html",
-                           data=[{'name': 'ianspeechsegmenter'}, {'name': 'picovoice'}, {'name': 'speechbrain'}, {'name': 'webrtc'}])
+                           data=[{'name': 'InaSpeechSegmenter'}, {'name': 'Picovoice'}, {'name': 'Speechbrain'}, {'name': 'WebRTC'}])
 
 
 # @app.route("/inaspeechsegmenter", methods=["GET", "POST"])
